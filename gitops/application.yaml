@@ -12,10 +12,12 @@ spec:
     helm:
       valueFiles: [values-dev.yaml]
       parameters:
+        - {name: monitoring.serviceMonitor.enabled, value: "false"}
+        - {name: ingress.enabled, value: "false"}
         - {name: backend.image, value: ghcr.io/ndgcodes/taskboard-backend}
         - {name: frontend.image, value: ghcr.io/ndgcodes/taskboard-frontend}
-        - {name: backend.tag, value: main}
-        - {name: frontend.tag, value: main}
+        - {name: backend.tag, value: 302b67319867e4baf17e219fe1fc9d248b7c0122}
+        - {name: frontend.tag, value: 302b67319867e4baf17e219fe1fc9d248b7c0122}
   destination:
     server: https://kubernetes.default.svc
     namespace: taskboard
