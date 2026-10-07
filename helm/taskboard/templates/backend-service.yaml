@@ -9,3 +9,18 @@ spec:
     - port: 8000
       targetPort: 8000
       name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  annotations:
+    meta.helm.sh/release-name: {{ .Release.Name }}
+    meta.helm.sh/release-namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/managed-by: Helm
+spec:
+  selector: {app: taskboard-backend}
+  ports:
+    - port: 8000
+      targetPort: 8000

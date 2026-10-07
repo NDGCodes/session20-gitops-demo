@@ -66,12 +66,12 @@ jobs:
           docker build -t ghcr.io/$IMAGE_OWNER/taskboard-backend:${{ github.sha }} ./backend
           docker build -t ghcr.io/$IMAGE_OWNER/taskboard-frontend:${{ github.sha }} ./frontend
       - name: Scan backend
-        uses: aquasecurity/trivy-action@0.30.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ghcr.io/${{ env.IMAGE_OWNER }}/taskboard-backend:${{ github.sha }}
           trivy-config: security/trivy.yaml
       - name: Scan frontend
-        uses: aquasecurity/trivy-action@0.30.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ghcr.io/${{ env.IMAGE_OWNER }}/taskboard-frontend:${{ github.sha }}
           trivy-config: security/trivy.yaml
@@ -108,4 +108,4 @@ jobs:
             --set frontend.image=ghcr.io/$IMAGE_OWNER/taskboard-frontend \
             --set monitoring.serviceMonitor.enabled=false --set hpa.enabled=false
           kubectl get pods,svc,pvc -n taskboard
-          kubectl exec -n taskboard deployment/taskboard-backend -- python -c "import urllib.request; print(urllib.request.urlopen('http://localhost:8000/ready').read().decode())"
+          kubectl exec -n taskboard deployment/taskboard-taskboard-backend -- python -c "import urllib.request; print(urllib.request.urlopen('http://localhost:8000/ready').read().decode())"

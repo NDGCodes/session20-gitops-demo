@@ -13,6 +13,7 @@ spec:
       containers:
         - name: backend
           image: "{{ .Values.backend.image }}:{{ .Values.backend.tag }}"
+          imagePullPolicy: IfNotPresent
           ports: [{containerPort: 8000}]
           envFrom:
             - configMapRef:
