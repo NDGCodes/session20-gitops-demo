@@ -70,11 +70,17 @@ jobs:
         with:
           image-ref: ghcr.io/${{ env.IMAGE_OWNER }}/taskboard-backend:${{ github.sha }}
           trivy-config: security/trivy.yaml
+          severity: HIGH,CRITICAL
+          ignore-unfixed: false
+          exit-code: '1'
       - name: Scan frontend
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: ghcr.io/${{ env.IMAGE_OWNER }}/taskboard-frontend:${{ github.sha }}
           trivy-config: security/trivy.yaml
+          severity: HIGH,CRITICAL
+          ignore-unfixed: false
+          exit-code: '1'
       - name: Push scanned images
         run: |
           docker push ghcr.io/$IMAGE_OWNER/taskboard-backend:${{ github.sha }}
